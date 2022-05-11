@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+{% block content %}
+    {% from 'bootstrap5/form.html' import render_form, render_field, render_form_row %}
+
+    <div class="row">
+
+         <div class="col-7 mx-auto">
+             <h2>Register</h2>
+             {{ render_form(form) }}
+         </div>
+        <div id="message" class="col-5">
+
+            <div id="letter">
+                Has a lower case letter
+            </div>
+            <div id="capletter">
+                Has an upper case letter
+            </div>
+            <div id="number">
+                Has a number
+            </div>
+            <div id="character">
+                Has at least 6 characters
+            </div>
+            <div class="progress">
+                <div id="p-bar" class="progress-bar progress-bar-info progress-bar-striped" style="width: 0%" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+        </div>
+    </div>
+
+<style>
+.invalid {
+    color: red;
+}
+.valid {
+    color: green;
+}
+</style>
+
+<script>
+    var passwordField = document.getElementById("password");
+    var letter = document.getElementById("letter");
+    var capletter = document.getElementById("capletter");
+    var number = document.getElementById("number");
+    var character = document.getElementById("character");
+
+    var lowerCase = 0;
+    var upperCase = 0;
+    var numberCase = 0;
+    var charCase = 0;
+
+    var message = document.getElementById("message");
+
+    passwordField.onfocus = function() {
+
+        message.style.display = "block";
+        message.style.border = "1px solid";
+    }
+
+    passwordField.onkeyup = function() {
+        var progress_bar = document.getElementById("p-bar");
+
+        var lowerCaseletters = /[a-z]/g;
+        if (passwordField.value.match(lowerCaseletters)){
+            letter.classList.remove("invalid");
+            letter.classList.add("valid");
+            progress_bar.style.width = addPBar(progress_bar, lowerCase);
+            lowerCase = 1;
+        }
+        else {
+            letter.classList.remove("valid");
+            letter.classList.add("invalid");
+            progress_bar.style.width = decPBar(progress_bar, lowerCase);
+            lowerCase = 0;
+        }
+        var upperCaseletters = /[A-Z]/g;
+        if (passwordField.value.match(upperCaseletters)){
+            capletter.classList.remove("invalid");
+            capletter.classList.add("valid");
+            progress_bar.style.width = addPBar(progress_bar, upperCase);
+            upperCase = 1;
+        }
+        else {
+            capletter.classList.remove("valid");
+            capletter.classList.add("invalid");
+            progress_bar.style.width = decPBar(progress_bar, upperCase);
+            upperCase = 0;
+        }
+        var numbers = /[0-9]/g;
+        if (passwordField.value.match(numbers)){
+            number.classList.remove("invalid");
+            number.classList.add("valid");
+            progress_bar.style.width = addPBar(progress_bar, numberCase);
+            numberCase = 1;
+        }
+        else {
+            number.classList.remove("valid");
+            number.classList.add("invalid");
+            progress_bar.style.width = decPBar(progress_bar, numberCase);
+            numberCase = 0;
+        }
+        if (passwordField.value.length >= 6){
+            character.classList.remove("invalid");
+            character.classList.add("valid");
+            progress_bar.style.width = addPBar(progress_bar, charCase);
+            charCase = 1;
+        }
+        else {
+            character.classList.remove("valid");
+            character.classList.add("invalid");
+            progress_bar.style.width = decPBar(progress_bar, charCase);
+            charCase = 0;
+        }
+    }
+
+    function addPBar(bar, x){
+        if (x===0){
+            let p_bar_width_string = bar.style.width;
+            let width_current_value = parseInt(p_bar_width_string.substring(0, p_bar_width_string.length - 1));
+            width_current_value = width_current_value + 25;
+            let width_string_new_value = width_current_value.toString();
+            return width_string_new_value.concat("%");
+        }
+        return bar.style.width;
+    }
+    function decPBar(bar, x){
+        if (x===1){
+            let p_bar_width_string = bar.style.width;
+            let width_current_value = parseInt(p_bar_width_string.substring(0, p_bar_width_string.length - 1));
+            width_current_value = width_current_value - 25;
+            let width_string_new_value = width_current_value.toString();
+            return width_string_new_value.concat("%");
+        }
+        return bar.style.width;
+    }
+
+</script>
+
+
+{% endblock %}

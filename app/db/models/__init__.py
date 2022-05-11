@@ -14,7 +14,7 @@ class User(UserMixin, db.Model):
     about = db.Column(db.String(300), nullable=True, unique=False)
     authenticated = db.Column(db.Boolean, default=False)
     registered_on = db.Column('registered_on', db.DateTime)
-    active = db.Column('is_active', db.Boolean(), nullable=False, server_default='1')
+    active = db.Column('is_active', db.Boolean(), nullable=False, server_default='0')
     is_admin = db.Column('is_admin', db.Boolean(), nullable=False, server_default='0')
 
     # `roles` and `groups` are reserved words that *must* be defined

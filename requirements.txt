@@ -12,6 +12,7 @@ Flask==2.1.1
 Flask-Login==0.6.0
 Flask-SQLAlchemy==2.5.1
 Flask-WTF==1.0.1
+Flask-Mail==0.9.1
 greenlet==1.1.2
 gunicorn==20.1.0
 idna==3.3
@@ -45,3 +46,4 @@ wrapt==1.14.0
 WTForms==3.0.1
 zipp==3.8.0
 rfc3339
+python-dotenv
