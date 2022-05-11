@@ -43,12 +43,12 @@ def create_app():
     db_dir = "database/db.sqlite"
     app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.abspath(db_dir)
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-    app.config['MAIL_SERVER'] = 'smtp.mailtrap.io'
-    app.config['MAIL_PORT'] = 2525
+    app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+    app.config['MAIL_PORT'] = 465
     app.config['MAIL_USERNAME'] = getenv('MAIL_USERNAME')
     app.config['MAIL_PASSWORD'] = getenv('MAIL_PASSWORD')
-    app.config['MAIL_USE_TLS'] = True
-    app.config['MAIL_USE_SSL'] = False
+    app.config['MAIL_USE_TLS'] = False
+    app.config['MAIL_USE_SSL'] = True
     db.init_app(app)
     # add command function to cli commands
     app.cli.add_command(create_database)
