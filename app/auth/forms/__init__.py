@@ -1,6 +1,9 @@
+from flask import flash
 from flask_wtf import FlaskForm
 from wtforms import validators
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from wtforms.fields import *
+import re
 
 
 class login_form(FlaskForm):
@@ -21,11 +24,12 @@ class register_form(FlaskForm):
 
     ], description="You need to signup with an email")
 
-    password = PasswordField('Create Password', [
-        validators.DataRequired(),
-        validators.EqualTo('confirm', message='Passwords must match'),
+    password = PasswordField('Create Password',
+        validators=[DataRequired(), Length(min=6),
+        EqualTo('confirm', message='Passwords must match')
 
     ], description="Create a password ")
+
     confirm = PasswordField('Repeat Password', description="Please retype your password to confirm it is correct")
     submit = SubmitField()
 
