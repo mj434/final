@@ -51,7 +51,7 @@ def register():
             db.session.add(user)
             db.session.commit()
             mail = Mail(current_app)
-            msg = Message('Confirm your registration to my site', sender='mj434@mailtrap.io', recipients=[form.email.data, 'mj434@mailtrap.io'])
+            msg = Message('Confirm your registration to my site', sender='mfinalis218@gmail.com', recipients=[form.email.data])
             msg.html = "<p>Hey user, confirm your registration to my site. Click the following link to activate your account and be redirected to the login page.</p><a href=\"" + request.url_root[:-1] + url_for('auth.confirm_user', user_id = user.id) + "\">Confirm my account</a>"
             mail.send(msg)
             flash('Confirmation sent. Please check your Email', "success")
@@ -183,11 +183,11 @@ def edit_account():
     form = security_form(obj=user)
     if form.validate_on_submit():
         user.email = form.email.data
-        user.password = form.password.data
+        user.password = generate_password_hash(form.password.data)
         db.session.add(current_user)
         db.session.commit()
         flash('You Successfully Updated your Password or Email', 'success')
-        return redirect(url_for('auth.dashboard'))
+        return redirect(url_for('auth.dashboard'), 302)
     return render_template('manage_account.html', form=form)
 
 
