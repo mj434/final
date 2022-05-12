@@ -16,17 +16,6 @@ def test_auth_pages(client):
     response = client.get("/login")
     assert response.status_code == 200
 
-def set_admin(client):
-    response = client.post("/register", data={"email": "mj434@njit.edu", "password": "12345678", "confirm": "12345678"})
-    assert response.status_code == 302
-    assert "/login" == response.headers["Location"]
-    response = client.get("/confirm/1")
-    assert response.status_code == 302
-    assert "/login" == response.headers["Location"]
-    response = client.post("/login", data={"email": "mj434@njit.edu", "password": "12345678"})
-    assert response.status_code == 302
-    assert "/dashboard" == response.headers["Location"]
-
 def test_register(client):
     assert client.get("/register").status_code == 200
     response = client.post("/register", data={"email": "test@example.com", "password": "abcdef", "confirm": "abcdef"})
