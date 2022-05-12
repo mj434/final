@@ -17,6 +17,7 @@ def test_auth_pages(client):
     assert response.status_code == 200
 
 def test_register(client):
+
     assert client.get("/register").status_code == 200
     response = client.post("/register", data={"email": "test@example.com", "password": "abcdef", "confirm": "abcdef"})
     assert response.status_code == 302
